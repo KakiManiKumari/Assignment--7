@@ -55,9 +55,10 @@ app.post('/save',(req, res) => {
     });
 });
  
-app.get('/edit/:userId',(req, res) => {
-    const userId = req.params.userId;
-    let sql = `Select * from users where id = ${userId}`;
+app.get('/edit/:phone_no',(req, res) => {
+    const user_name = req.params.phone_no;
+   
+    let sql="Select * from users where phone_no='"+user_name+"'";
     let query = connection.query(sql,(err, result) => {
         if(err) throw err;
         res.render('user_edit', {
@@ -69,16 +70,16 @@ app.get('/edit/:userId',(req, res) => {
  
  
 app.post('/update',(req, res) => {
-    const userId = req.body.id;
-    let sql = "update users SET name='"+req.body.name+"',  email='"+req.body.email+"',  phone_no='"+req.body.phone_no+"' where id ="+userId;
+    const user_name = req.body.phone_no;
+    let sql = "update users SET name='"+req.body.name+"',  email='"+req.body.email+"',  phone_no='"+req.body.phone_no+"' where phone_no ='"+user_name+"'";
     let query = connection.query(sql,(err, results) => {
       if(err) throw err;
       res.redirect('/');
     });
 });
-app.get('/delete/:userId',(req, res) => {
-    const userId = req.params.userId;
-    let sql = `DELETE from users where id = ${userId}`;
+app.get('/delete/:phone_no',(req, res) => {
+    const user_name = req.params.phone_no;
+    let sql="DELETE from users where phone_no='"+user_name+"'";
     let query = connection.query(sql,(err, result) => {
         if(err) throw err;
         res.redirect('/');
